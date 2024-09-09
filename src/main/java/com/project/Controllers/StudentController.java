@@ -131,5 +131,11 @@ public class StudentController {
 		 }
 		 return"redirect:/student/dashboard?id="+studentId;
 	 }
+	 //***************************************Logout***********************************************
+	 
+	 @RequestMapping("/logout")
+	 public String logout() {
+		 return"/";
+	 }
 
 }

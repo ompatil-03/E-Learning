@@ -88,9 +88,9 @@ public class StudentServiceImplimentation implements StudentService {
 		Student student = studentRepo.findById(studentId).orElseThrow(() -> new RuntimeException("Student not found"));
 	    Course course = courseRepo.findById(courseId).orElseThrow(() -> new RuntimeException("Course not found"));
 
-	    // Add the course to the student's set of courses
 	    student.getCourses().add(course);
 	    studentRepo.save(student);
 	}
+
 
 }

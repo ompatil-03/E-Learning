@@ -27,4 +27,5 @@ public interface StudentService {
 	    Student getUserByEmail(String email);
 	    
 	    void enrollStudentInCourse(int studentId,int courseId);
+
 }

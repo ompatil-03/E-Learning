@@ -31,6 +31,15 @@
 
     <!-- Main Content -->
     <main class="flex-grow container mx-auto py-8 px-4">
+
+        <!-- Teacher Info Section -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Teacher Information</h2>
+            <p><strong>Name:</strong> ${teacher.name}</p>
+            <p><strong>Email:</strong> ${teacher.email}</p>
+            <!-- Add more teacher-related info if needed -->
+        </section>
+
         <!-- Created Courses Table -->
         <section class="bg-white p-6 rounded-lg shadow-md mb-8">
             <h2 class="text-2xl font-semibold text-gray-800 mb-4">Your Created Courses</h2>
@@ -47,28 +56,54 @@
                 <tbody class="text-gray-700">
                     <c:forEach var="course" items="${courseList}">
                         <tr class="border-b border-gray-200">
-                         <td class="py-4 px-6">${course.getId()}</td>
-                            <td class="py-4 px-6">${course.getName()}</td>
-                            <td class="py-4 px-6"><a href="${course.getLink()}" class="text-blue-500 hover:underline">View Link</a></td>
+                            <td class="py-4 px-6">${course.getId()}</td>
+                            <td class="py-4 px-6">${course.name}</td>
+                            <td class="py-4 px-6"><a href="${course.link}" class="text-blue-500 hover:underline">View Link</a></td>
                             <td class="py-4 px-6">
-                                <c:if test="${not empty course.getStudyMaterial()}">
-                                    <a href="${course.getStudyMaterial()}" class="text-blue-500 hover:underline" target="_blank">View Material</a>
+                                <c:if test="${not empty course.studyMaterial}">
+                                    <a href="${course.studyMaterial}" class="text-blue-500 hover:underline" target="_blank">View Material</a>
                                 </c:if>
-                                <c:if test="${empty course.getStudyMaterial()}">
+                                <c:if test="${empty course.studyMaterial}">
                                     No Material
                                 </c:if>
                             </td>
                             <td class="py-4 px-6 flex">
-                              <form action="/teacher/editCourse">
-                              		<input type="hidden" name="id" value="${course.getId()}">
-                                     <button class="mx-3 bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                                       type="submit">Edit</button>
+                                <form action="/teacher/editCourse" method="post">
+                                    <input type="hidden" name="courseId" value="${course.getId()}">
+                                    <input type="hidden" name="teacherId" value="${teacher.getId()}">
+                                    <button class="mx-3 bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600" type="submit">Edit</button>
                                 </form>
-                                <form action="/teacher/deleteCourse">
-                                	<input type="hidden" name="id" value="${course.getId()}">
-                                     <button class="mx-3 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                                       type="submit">Delete</button>
+                                <form action="/teacher/deleteCourse" method="post">
+                                    <input type="hidden" name="id" value="${course.getId()}">
+                                    <button class="mx-3 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600" type="submit">Delete</button>
                                 </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Students Enrolled in Courses -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Students Enrolled in Courses</h2>
+            <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        <th class="py-3 px-4 text-left">Course</th>
+                        <th class="py-3 px-4 text-left">Student Name</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                    <c:forEach var="entry" items="${courseStudentMap}">
+                        <tr class="border-t border-gray-200">
+                            <td class="py-2 px-4 font-medium">${entry.key.name}</td>
+                            <td class="py-2 px-4">
+                                <ul class="list-disc list-inside">
+                                    <c:forEach var="student" items="${entry.value}">
+                                        <li>${student.name}</li>
+                                    </c:forEach>
+                                </ul>
                             </td>
                         </tr>
                     </c:forEach>
@@ -120,8 +155,5 @@
         </div>
     </footer>
 
-    <script>
-        
-    </script>
 </body>
 </html>

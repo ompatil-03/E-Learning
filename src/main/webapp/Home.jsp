@@ -42,7 +42,7 @@
                 <form action="/student/login" method="get" class="inline">
                     <button type="submit" class="bg-yellow-400 text-blue-900 px-8 py-3 rounded-full font-semibold hover:bg-yellow-500 transition mr-4">As Student</button>
                 </form>
-                <form action="teacher/login" method="get" class="inline">
+                <form action="/teacher/login" method="get" class="inline">
                     <input type="hidden" name="type" value="teacher">
                     <button type="submit" class="bg-white text-blue-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition">Join as Teacher</button>
                 </form>

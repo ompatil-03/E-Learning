@@ -2,12 +2,14 @@ package com.project.Service.ServiceImplimentation;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.project.Bean.Course;
 import com.project.Bean.Teacher;
+import com.project.Bean.Student;
 import com.project.Repository.CourseRepository;
 import com.project.Service.CourseService;
 
@@ -44,5 +46,10 @@ public class CourseServiceImplimentation implements CourseService{
 	public Course saveCourse(Course course) {
 		return courseRepo.save(course);
 	}
+	
+	@Override
+	 public Set<Student> getStudentsByCourseId(Integer courseId) {
+        return courseRepo.findStudentsById(courseId);
+    }
 
 }
